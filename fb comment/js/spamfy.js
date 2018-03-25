@@ -77,6 +77,7 @@ var spamfy = {
 	
 	for(i=0; i<x.length; i++){
 		textbody = x[i].getElementsByClassName("UFICommentBody");
+		console.log(textbody);
 		if(textbody[0].innerHTML.indexOf("GGGG This is a SPAM !")==-1){
 			textbody[0].innerHTML = '<h1>GGGG This is a SPAM !</h1>' + textbody[0].innerHTML;
 		}

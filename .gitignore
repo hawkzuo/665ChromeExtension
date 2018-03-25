@@ -127,6 +127,6 @@ tags
 
 # New for 665
 *.DS_Store
-
+.idea/
 
 # End of https://www.gitignore.io/api/emacs,vim,visualstudiocode,node
