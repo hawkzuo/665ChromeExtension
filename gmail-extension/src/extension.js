@@ -7,6 +7,11 @@ const GmailFactory = require("gmail-js");
 const gmail = new GmailFactory.Gmail($);
 window.gmail = gmail;
 
+function reqListener () {
+    console.log(this.responseText);
+}
+
+
 gmail.observe.on("load", () => {
     const userEmail = gmail.get.user_email();
     console.log("Hello, " + userEmail + ". This is your extension talking!");
@@ -26,6 +31,17 @@ gmail.observe.on("load", () => {
         currentMail.body('<h1>This is not a SPAM !</h1>' + mailBody);
 
         console.log(mailBody);
+
+        var local_data = {};
+        local_data["type"] ='tags';
+
+        var oReq = new XMLHttpRequest();
+        oReq.addEventListener("load", reqListener);
+        oReq.open("GET", "http://localhost:3000/static_pages/total_size");
+        oReq.send();
+
+
+
     });
 
 
