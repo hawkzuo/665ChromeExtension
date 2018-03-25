@@ -1,0 +1,34 @@
+{
+  "name": "Spamfy My Facebook",
+  "version": "1.0",
+  "manifest_version": 2,
+  "description": "Spamfy My Facebook will check your Facebook comments.",
+  "page_action": {
+    "default_title": "Spamfy My Facebook",
+    "default_popup": "html/popup.html"
+  },
+  "background": {
+    "scripts": [
+      "js/background.js"
+    ],
+    "persistent": false
+  },
+  "permissions" : [
+    "declarativeContent",
+    "storage"
+  ],
+  "icons": {
+    "128": "img/Pikachu.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.facebook.com/*",
+        "http://www.facebook.com/*"
+      ],
+      "js": [
+        "js/spamfy.js"
+      ]
+    }
+  ]
+}
