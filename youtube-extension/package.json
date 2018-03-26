@@ -1,0 +1,20 @@
+{
+  "name": "youtube-node-extension",
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "scripts": {
+    "deps": "npm install",
+    "stage": "mkdir production || echo Production already exists.",
+    "bundle": "browserify -o production/extension.js src/spamfy.js",
+    "build": "npm run stage && npm run bundle"
+  },
+  "author": "zjy119",
+  "license": "ISC",
+  "dependencies": {
+    "jquery": "^3.3.1"
+  },
+  "devDependencies": {
+    "browserify": "^13.3.0"
+  }
+}

@@ -1,0 +1,27 @@
+{
+    "manifest_version": 2,
+    "name": "Youtube Spam Detection Extension",
+    "short_name": "youtubeSpam",
+    "version": "1.0",
+    "author": "zjy119@tamu.edu",
+
+    "description": "Extension for Spam on Youtube",
+
+    "content_scripts": [
+        {
+            "matches": [ "*://www.youtube.com/*" ],
+            "js": [
+                "src/extensionInjector.js"
+            ],
+            "run_at": "document_end"
+        }
+    ],
+
+    "web_accessible_resources": [
+        "production/extension.js"
+    ],
+
+    "permissions": [
+        "https://*/*"
+    ]
+}
