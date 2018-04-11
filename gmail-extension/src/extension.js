@@ -18,29 +18,50 @@ gmail.observe.on("load", () => {
 
     gmail.observe.on("view_thread", (e) => {
         // The goal is to send a request with the gmail content
-        // The request will send to localhost to generate a result 
+        // The request will send to localhost to generate a result
         // indicating the email to be spam or not
-        // Moreover, either the server or this script will highlight the 
+        // Moreover, either the server or this script will highlight the
         // "suspicious" words in this email to alert users
 
-        const currentMail = gmail.dom.email($('div.adn'));
+        var currentMail = gmail.dom.email($('div.adn'));
         const mailBody = currentMail.body();
+        const emailContent = currentMail.id_element.text();
 
+        console.log(emailContent);
         // An XHR request will be sent to server to verify the mailBody to be spam or not
         // On callback, update the UI to show the highlights
-        currentMail.body('<h1>This is not a SPAM !</h1>' + mailBody);
 
-        console.log(mailBody);
+
 
         var local_data = {};
         local_data["type"] ='tags';
 
-        var oReq = new XMLHttpRequest();
-        oReq.addEventListener("load", reqListener);
-        oReq.open("GET", "http://localhost:3000/static_pages/total_size");
-        oReq.send();
+        // var oReq = new XMLHttpRequest();
+        // oReq.addEventListener("load", reqListener);
+        // oReq.open("GET", "http://localhost:8000/spam/json_request");
+        // oReq.send();
 
-
+        $.ajax({
+          method: "GET",
+          url: "http://localhost:8000/spam/json_request",
+          data: { emailContent: emailContent },
+          success: function(data_back) {                               // Show content
+            if (data_back['status'] === 'Failed') {
+              currentMail.body('<h1>Server cannot classify example !</h1>' + mailBody);
+            } else if (data_back['status'] === 'Spam'){
+              currentMail.body('<h1 class="label">Potential Spam!</h1>' + mailBody);
+            } else {
+              // Ham
+              // Call Word List API
+              // Comment is short, loop over comment words, excahnge
+              // Independent to comments
+            }
+            console.log(currentMail);
+          },
+          error: function() {                                     // Show error msg
+              currentMail.body('<h1>Server refused to connect !</h1>' + mailBody);
+          }
+        });
 
     });
 
