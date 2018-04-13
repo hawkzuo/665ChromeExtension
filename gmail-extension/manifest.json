@@ -1,11 +1,11 @@
 {
     "manifest_version": 2,
-    "name": "GmailJS Node Boilerplate Extension",
-    "short_name": "gmailjsnode",
+    "name": "Gmail Spam Killer",
+    "short_name": "gmailkiller",
     "version": "1.0",
-    "author": "Jostein Kjønigsen <jostein@kjonigsen.net>",
+    "author": "Jianyu Zuo <zjy119@tamu.edu>",
 
-    "description": "A minimal extension which demonstrates how to create a extension with Gmail.JS and NodeJS-based bundling.",
+    "description": "An extension used to perform content-based classifications",
 
     "content_scripts": [
         {
@@ -13,6 +13,7 @@
             "js": [
                 "src/extensionInjector.js"
             ],
+            "css": ["css/main.css"],
             "run_at": "document_end"
         }
     ],
