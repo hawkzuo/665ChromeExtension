@@ -16,31 +16,25 @@ gmail.observe.on("load", () => {
     const userEmail = gmail.get.user_email();
     console.log("Hello, " + userEmail + ". This is your extension talking!");
 
-    gmail.observe.on("view_thread", (e) => {
+    gmail.observe.on("view_thread", (obj) => {
+    // gmail.observe.after("open_email", (id, url, body, xhr) => {
         // The goal is to send a request with the gmail content
         // The request will send to localhost to generate a result
         // indicating the email to be spam or not
         // Moreover, either the server or this script will highlight the
         // "suspicious" words in this email to alert users
 
-        var currentMail = gmail.dom.email($('div.adn'));
+        console.log(obj);
+
+    });
+
+    // This event will only be triggered after the "view_thread" event already fired
+    gmail.observe.on('view_email', function(obj) {
+        console.log('view_email', obj);
+
+        let currentMail = gmail.dom.email(obj.id);
         const mailBody = currentMail.body();
         const emailContent = currentMail.id_element.text();
-
-        // console.log(emailContent);
-
-        // An XHR request will be sent to server to verify the mailBody to be spam or not
-        // On callback, update the UI to show the highlights
-
-
-
-        var local_data = {};
-        local_data["type"] ='tags';
-
-        // var oReq = new XMLHttpRequest();
-        // oReq.addEventListener("load", reqListener);
-        // oReq.open("GET", "http://localhost:8000/spam/json_request");
-        // oReq.send();
 
         $.ajax({
           method: "GET",
@@ -50,7 +44,8 @@ gmail.observe.on("load", () => {
             if (data_back['status'] === 'Failed') {
               currentMail.body('<h1>Server cannot classify example !</h1>' + mailBody);
             } else if (data_back['status'] === 'spam'){
-              currentMail.body('<div><h1 class="label">Potential Spam!</h1><button id="showAnyway" class="show">Show anyway</button></div>' );
+              currentMail.body('<div><h1 class="label">Potential Spam!</h1>' +
+                  '<button id="showAnyway" class="show">Show anyway</button></div>' );
 
               $('#showAnyway').click(function (e) {
                 console.log(e.target);
@@ -74,7 +69,7 @@ gmail.observe.on("load", () => {
                 //   "class": "my-new-list",
                 //   html: items.join( "" )
                 // }).appendTo( "body" );
-                console.log(data)
+                // console.log(data)
               });
 
 
@@ -86,7 +81,9 @@ gmail.observe.on("load", () => {
           }
         });
 
+
     });
+
 
 
 });
