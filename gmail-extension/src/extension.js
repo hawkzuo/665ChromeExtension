@@ -56,7 +56,8 @@ gmail.observe.on("load", () => {
               // Call Word List API
               // Comment is short, loop over comment words, excahnge
               // Independent to comments
-              currentMail.body('<h1 class="label">Not Spam!</h1>' + mailBody);
+                const imgURL = 'chrome-extension://igehhcmcpeiglnilhlfpdglgpjbdnlpa/img/Pikachu.png';
+                currentMail.body('<div><img src="'+imgURL + '"></div>' + mailBody);
 
               // Keep making AJAX calls
               $.getJSON( "http://localhost:8000/spam/words", function( data ) {
