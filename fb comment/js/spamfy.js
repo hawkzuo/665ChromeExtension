@@ -48,10 +48,25 @@ var spamfy = {
 				xhr.open("GET", "http://localhost:8000/spam/json_request?emailContent=" + data, true);
 				xhr.onreadystatechange = function() {
  		 			if (this.readyState == 4 && this.status == 200) {
-						if(document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.indexOf("status")==-1){
-     				 			document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML += this.responseText;
+						if(this.responseText.includes('spam')){
+							if(document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.indexOf('👋')==-1){
+     								document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML += '👋';
+							}
 						}
-   				 	}
+						else if(this.responseText.includes('ham')){
+							if(document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.indexOf('Show anyway')==-1 && document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.indexOf('💀')==-1){
+                                    const olddata = document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.toString();
+     								document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML = '<div><button id="showAnyway" class="show">Show anyway</button></div>';
+                                    $('.show').click(function (e) {
+                                         console.log(e.target);
+                                                     document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML = olddata+ '💀';
+                                    });
+							}
+						}
+						//if(document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.indexOf("status")==-1){
+     						//	document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML += this.responseText;
+						//}
+   					}
  				};
   				xhr.send();
 				//textbody[0].innerHTML = "yayaya" + textbody[0].innerHTML;
@@ -96,14 +111,29 @@ var spamfy = {
 		textbody = x[j].getElementsByClassName("UFICommentBody");
 		//console.log(textbody[0].innerHTML);
 		xhr = new XMLHttpRequest();
+		data = textbody[0].innerHTML.toString();
 		xhr.onreadystatechange = function() {
  		 	if (this.readyState == 4 && this.status == 200) {
-				if(document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.indexOf("status")==-1){
-     					document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML += this.responseText;
+				if(this.responseText.includes('spam')){
+					if(document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.indexOf('👋')==-1){
+     						document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML += '👋';
+					}
 				}
+				else if(this.responseText.includes('ham')){
+					if(document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.indexOf('Show anyway')==-1 && document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.indexOf('💀')==-1){
+                            const olddata = document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.toString();
+     						document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML = '<div><button id="showAnyway" class="show">Show anyway</button></div>';
+                            $('.show').click(function (e) {
+                                 console.log(e.target);
+                                             document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML = olddata + '💀';
+                            });
+					}
+				}
+				//if(document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.indexOf("status")==-1){
+     				//	document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML += this.responseText;
+				//}
    			}
  		};
-		data = textbody[0].innerHTML.toString();
 		xhr.open("GET", "http://localhost:8000/spam/json_request?emailContent=" + data, true);
   		xhr.send();
 		//textbody[0].innerHTML = "yayaya" + textbody[0].innerHTML;
