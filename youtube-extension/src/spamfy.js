@@ -47,7 +47,17 @@ var spamfy = {
 
                         var target = x[i].getElementsByClassName('ytd-expander')[0];
                         console.log(x[i])
-                        target.children[1].innerText = target.children[1].innerText + '      ***SPAM***';
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+ 		 		if (this.readyState == 4 && this.status == 200) {
+     				 	//textbody[0].innerHTML = this.responseText;
+					target.children[1].innerText = target.children[1].innerText + this.responseText;
+   				}
+ 			};
+			data = target.children[1].innerText.toString();
+			xhttp.open("GET", "http://localhost:8000/spam/json_request?emailContent=" + data, true);
+  			xhttp.send();
+                        //target.children[1].innerText = target.children[1].innerText + '      ***SPAM***';
                         // target.innerHTML = target.innerHTML + '<h1>GGGG This is a SPAM !</h1>';
                 			}
                     }
