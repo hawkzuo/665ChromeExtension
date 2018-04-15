@@ -10401,19 +10401,21 @@ const spamfy = {
               let commentArea = element.getElementsByClassName('ytd-expander')[0];
               $.ajax({
                 method: "GET",
-                url: "http://localhost:8000/spam/json_request",
+                url: "http://localhost:8000/spam/json_request_youtube",
                 data: {emailContent: commentArea.children[1].innerText},
                 success: function (data_back) {                               // Show content
                   if (data_back['status'] === 'Failed') {
                     console.log('Failed')
                   } else if (data_back['status'] === 'spam') {
                     const oldComment = commentArea.children[1].innerText;
-                    commentArea.innerHTML = '<div><button id="showAnyway" class="show">Show anyway</button></div>'
+                    commentArea.innerHTML = `<div><button id="${oldComment}" class="show">Show anyway</button></div>`;
                     // console.log('spam');
                     console.log(`Hided Comment: ${oldComment}`);
                     $('.show').click(function (e) {
                       console.log(e.target);
-                      commentArea.innerHTML = (`<div><h1 class="label">${oldComment}</div>`)
+                      if (e.target.id === oldComment) {
+                        commentArea.innerHTML = (`<div><h1 class="label">${oldComment}</div>`)
+                      }
                     });
                   } else {
                     commentArea.children[1].innerText = commentArea.children[1].innerText + '👋';
@@ -10465,21 +10467,22 @@ const spamfy = {
       let commentArea = element.getElementsByClassName('ytd-expander')[0];
       $.ajax({
         method: "GET",
-        url: "http://localhost:8000/spam/json_request",
+        url: "http://localhost:8000/spam/json_request_youtube",
         data: {emailContent: commentArea.children[1].innerText},
         success: function (data_back) {                               // Show content
           if (data_back['status'] === 'Failed') {
             console.log('Failed')
           } else if (data_back['status'] === 'spam') {
             const oldComment = commentArea.children[1].innerText;
-            commentArea.innerHTML = '<div><button id="showAnyway" class="show">Show anyway</button></div>'
+            commentArea.innerHTML = `<div><button id="${oldComment}" class="show">Show anyway</button></div>`;
+            // console.log('spam');
             console.log(`Hided Comment: ${oldComment}`);
             $('.show').click(function (e) {
               console.log(e.target);
-              commentArea.innerHTML = (`<div><h1 class="label">${oldComment}</div>`)
+              if (e.target.id === oldComment) {
+                commentArea.innerHTML = (`<div><h1 class="label">${oldComment}</div>`)
+              }
             });
-
-
           } else {
             commentArea.children[1].innerText = commentArea.children[1].innerText + '👋';
             // console.log('ham');
