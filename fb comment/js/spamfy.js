@@ -48,18 +48,20 @@ var spamfy = {
 				xhr.open("GET", "http://localhost:8000/spam/json_request?emailContent=" + data, true);
 				xhr.onreadystatechange = function() {
  		 			if (this.readyState == 4 && this.status == 200) {
-						if(this.responseText.includes('spam')){
+						if(this.responseText.includes('ham')){
 							if(document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.indexOf('👋')==-1){
      								document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML += '👋';
 							}
 						}
-						else if(this.responseText.includes('ham')){
-							if(document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.indexOf('Show anyway')==-1 && document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.indexOf('💀')==-1){
+						else if(this.responseText.includes('spam')){
+							if(!document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.includes('Show anyway') && !document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.includes('💀')){
                                     const olddata = document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.toString();
-     								document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML = '<div><button id="showAnyway" class="show">Show anyway</button></div>';
+             alert(olddata);
+     								document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML = `<div><button id="${olddata}" class="show">Show anyway</button></div>`;
                                     $('.show').click(function (e) {
-                                         console.log(e.target);
-                                                     document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML = olddata+ '💀';
+                                                     if (e.target.id === olddata) {
+                                                     document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML = olddata + '💀';
+                                                     }
                                     });
 							}
 						}
@@ -114,18 +116,21 @@ var spamfy = {
 		data = textbody[0].innerHTML.toString();
 		xhr.onreadystatechange = function() {
  		 	if (this.readyState == 4 && this.status == 200) {
-				if(this.responseText.includes('spam')){
+				if(this.responseText.includes('ham')){
 					if(document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.indexOf('👋')==-1){
      						document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML += '👋';
 					}
 				}
-				else if(this.responseText.includes('ham')){
-					if(document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.indexOf('Show anyway')==-1 && document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.indexOf('💀')==-1){
+				else if(this.responseText.includes('spam')){
+					if(!document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.includes('Show anyway') && !document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.includes('💀')){
                             const olddata = document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.toString();
-     						document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML = '<div><button id="showAnyway" class="show">Show anyway</button></div>';
+         alert(olddata);
+     						document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML = `<div><button id="${olddata}" class="show">Show anyway</button></div>`;
                             $('.show').click(function (e) {
-                                 console.log(e.target);
-                                             document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML = olddata + '💀';
+                                             if (e.target.id === olddata) {
+                                                             document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML = olddata + '💀';
+                                             }
+                                             
                             });
 					}
 				}
