@@ -17,9 +17,6 @@
     "declarativeContent",
     "storage"
   ],
-  "icons": {
-    "128": "img/Pikachu.png"
-  },
   "content_scripts": [
     {
       "matches": [

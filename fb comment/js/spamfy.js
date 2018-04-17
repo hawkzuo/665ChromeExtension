@@ -39,42 +39,42 @@ var spamfy = {
                     var node = mutation.addedNodes[i];
                     if (node && node.nodeType == 1) {
 			var x = document.getElementsByClassName("UFIComment");
+                        
 			for(j=0; j<x.length; j++){
 			(function(j) {
 				textbody = x[j].getElementsByClassName("UFICommentBody");
 				//console.log(textbody[0].innerHTML);
-				xhr = new XMLHttpRequest();
+				var xhr = new XMLHttpRequest();
 				data = textbody[0].innerHTML.toString();
-				xhr.open("GET", "http://localhost:8000/spam/json_request?emailContent=" + data, true);
 				xhr.onreadystatechange = function() {
  		 			if (this.readyState == 4 && this.status == 200) {
 						if(this.responseText.includes('ham')){
-							if(document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.indexOf('👋')==-1){
+                            let commentArea = document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody");
+							if(!commentArea[0].innerHTML.includes('👋') && !commentArea[0].innerHTML.includes('Show anyway')&& !commentArea[0].innerHTML.includes('💀')){
      								document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML += '👋';
 							}
 						}
 						else if(this.responseText.includes('spam')){
-							if(!document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.includes('Show anyway') && !document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.includes('💀')){
-                                    const olddata = document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.toString();
-             alert(olddata);
-     								document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML = `<div><button id="${olddata}" class="show">Show anyway</button></div>`;
+                            let commentArea = document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody");
+							if(!commentArea[0].innerHTML.includes('Show anyway') && !commentArea[0].innerHTML.includes('💀')){
+                                    const ooolddata = commentArea[0].innerHTML;
+             const oolddata = ooolddata.replace(/amp;/g, "jjj");
+                                    const olddata = oolddata.replace(/\"/g, "zzz");
+             commentArea[0].innerHTML = `<div class="container"><button type="button" class="show" id="${olddata}">Show anyway</button></div>`;
                                     $('.show').click(function (e) {
                                                      if (e.target.id === olddata) {
-                                                     document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML = olddata + '💀';
+                                                     commentArea[0].innerHTML = ooolddata + '💀';
                                                      }
                                     });
 							}
 						}
-						//if(document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.indexOf("status")==-1){
-     						//	document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML += this.responseText;
-						//}
    					}
  				};
+                xhr.open("GET", "http://localhost:8000/spam/json_request?emailContent=" + data, true);
   				xhr.send();
-				//textbody[0].innerHTML = "yayaya" + textbody[0].innerHTML;
 			})(j);
 			}
-			//counter += j;
+                         
                     }
                 }
             }
@@ -107,44 +107,44 @@ var spamfy = {
 
 	var x = document.getElementsByClassName("UFIComment");
 	
-	var xhr = [];
+    
 	for(j=0; j<x.length; j++){
 		(function(j) {
 		textbody = x[j].getElementsByClassName("UFICommentBody");
 		//console.log(textbody[0].innerHTML);
-		xhr = new XMLHttpRequest();
+		var xhr = new XMLHttpRequest();
 		data = textbody[0].innerHTML.toString();
 		xhr.onreadystatechange = function() {
  		 	if (this.readyState == 4 && this.status == 200) {
 				if(this.responseText.includes('ham')){
-					if(document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.indexOf('👋')==-1){
+                    let commentArea = document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody");
+					if(!commentArea[0].innerHTML.includes('👋') && !commentArea[0].innerHTML.includes('Show anyway') && !commentArea[0].innerHTML.includes('💀')){
      						document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML += '👋';
 					}
 				}
 				else if(this.responseText.includes('spam')){
-					if(!document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.includes('Show anyway') && !document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.includes('💀')){
-                            const olddata = document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.toString();
-         alert(olddata);
-     						document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML = `<div><button id="${olddata}" class="show">Show anyway</button></div>`;
+                    let commentArea = document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody");
+					if(!commentArea[0].innerHTML.includes('Show anyway') && !commentArea[0].innerHTML.includes('💀')){
+                            const ooolddata = commentArea[0].innerHTML;
+         const oolddata = ooolddata.replace(/amp;/g, "jjj");
+                            const olddata = oolddata.replace(/\"/g, "zzz");
+     						commentArea[0].innerHTML = `<div class="container"><button type="button" class="show" id="${olddata}">Show anyway</button></div>`;
                             $('.show').click(function (e) {
+                                                    
                                              if (e.target.id === olddata) {
-                                                             document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML = olddata + '💀';
+                                                             commentArea[0].innerHTML = ooolddata + '💀';
                                              }
                                              
                             });
 					}
 				}
-				//if(document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.indexOf("status")==-1){
-     				//	document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML += this.responseText;
-				//}
    			}
  		};
 		xhr.open("GET", "http://localhost:8000/spam/json_request?emailContent=" + data, true);
   		xhr.send();
-		//textbody[0].innerHTML = "yayaya" + textbody[0].innerHTML;
 		})(j);
 	}
-	//counter += j;
+    
 
     
     },
