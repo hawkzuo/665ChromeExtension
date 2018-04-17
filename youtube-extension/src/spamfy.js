@@ -4,7 +4,6 @@ console.log("Extension loading...");
 const jQuery = require("jquery");
 const $ = jQuery;
 
-
 const spamfy = {
 
   // mutation observer

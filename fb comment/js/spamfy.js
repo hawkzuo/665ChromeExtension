@@ -1,5 +1,7 @@
 //reference 1 - how to change Facebook content: https://github.com/daattali/smileyfy-my-facebook-extension
 //reference 2 - how to access Facebook comments: https://doofenshmirtzevilincorporated.blogspot.com/2016/05/facebook-draw.html
+//var xhr=[];
+//var counter = 0;
 
 var spamfy = {
     
@@ -36,13 +38,43 @@ var spamfy = {
                 for (var i in mutation.addedNodes) {
                     var node = mutation.addedNodes[i];
                     if (node && node.nodeType == 1) {
-			var x = node.getElementsByClassName("UFIComment");
-			for(i=0; i<x.length; i++){
-				textbody = x[i].getElementsByClassName("UFICommentBody");
-				if(textbody[0].innerHTML.indexOf("GGGG This is a SPAM !")==-1){
-					textbody[0].innerHTML = '<h1>GGGG This is a SPAM !</h1>' + textbody[0].innerHTML;
-				}
+			var x = document.getElementsByClassName("UFIComment");
+			for(j=0; j<x.length; j++){
+			(function(j) {
+				textbody = x[j].getElementsByClassName("UFICommentBody");
+				//console.log(textbody[0].innerHTML);
+				xhr = new XMLHttpRequest();
+				data = textbody[0].innerHTML.toString();
+				xhr.open("GET", "http://localhost:8000/spam/json_request?emailContent=" + data, true);
+				xhr.onreadystatechange = function() {
+ 		 			if (this.readyState == 4 && this.status == 200) {
+						if(this.responseText.includes('ham')){
+							if(document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.indexOf('👋')==-1){
+     								document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML += '👋';
+							}
+						}
+						else if(this.responseText.includes('spam')){
+							if(!document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.includes('Show anyway') && !document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.includes('💀')){
+                                    const olddata = document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.toString();
+             alert(olddata);
+     								document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML = `<div><button id="${olddata}" class="show">Show anyway</button></div>`;
+                                    $('.show').click(function (e) {
+                                                     if (e.target.id === olddata) {
+                                                     document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML = olddata + '💀';
+                                                     }
+                                    });
+							}
+						}
+						//if(document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.indexOf("status")==-1){
+     						//	document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML += this.responseText;
+						//}
+   					}
+ 				};
+  				xhr.send();
+				//textbody[0].innerHTML = "yayaya" + textbody[0].innerHTML;
+			})(j);
 			}
+			//counter += j;
                     }
                 }
             }
@@ -75,14 +107,44 @@ var spamfy = {
 
 	var x = document.getElementsByClassName("UFIComment");
 	
-	for(i=0; i<x.length; i++){
-		textbody = x[i].getElementsByClassName("UFICommentBody");
-		console.log(textbody);
-		if(textbody[0].innerHTML.indexOf("GGGG This is a SPAM !")==-1){
-			textbody[0].innerHTML = '<h1>GGGG This is a SPAM !</h1>' + textbody[0].innerHTML;
-		}
-		
+	var xhr = [];
+	for(j=0; j<x.length; j++){
+		(function(j) {
+		textbody = x[j].getElementsByClassName("UFICommentBody");
+		//console.log(textbody[0].innerHTML);
+		xhr = new XMLHttpRequest();
+		data = textbody[0].innerHTML.toString();
+		xhr.onreadystatechange = function() {
+ 		 	if (this.readyState == 4 && this.status == 200) {
+				if(this.responseText.includes('ham')){
+					if(document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.indexOf('👋')==-1){
+     						document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML += '👋';
+					}
+				}
+				else if(this.responseText.includes('spam')){
+					if(!document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.includes('Show anyway') && !document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.includes('💀')){
+                            const olddata = document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.toString();
+         alert(olddata);
+     						document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML = `<div><button id="${olddata}" class="show">Show anyway</button></div>`;
+                            $('.show').click(function (e) {
+                                             if (e.target.id === olddata) {
+                                                             document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML = olddata + '💀';
+                                             }
+                                             
+                            });
+					}
+				}
+				//if(document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML.indexOf("status")==-1){
+     				//	document.getElementsByClassName("UFIComment")[j].getElementsByClassName("UFICommentBody")[0].innerHTML += this.responseText;
+				//}
+   			}
+ 		};
+		xhr.open("GET", "http://localhost:8000/spam/json_request?emailContent=" + data, true);
+  		xhr.send();
+		//textbody[0].innerHTML = "yayaya" + textbody[0].innerHTML;
+		})(j);
 	}
+	//counter += j;
 
     
     },

@@ -1,0 +1,16 @@
+.show {
+  background-color: #24ff42;
+  color: #ff3536;
+  padding: 10px;
+}
+
+.label {
+  width: 500px;
+  height: 400px;
+  overflow-x: hidden;
+}
+
+img {
+  max-height: 128px;
+  max-width: 128px;
+}
