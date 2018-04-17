@@ -1,11 +1,10 @@
 {
-  "name": "Spamfy My Facebook",
+  "name": "Facebook Spam Killer",
   "version": "1.0",
   "manifest_version": 2,
-  "description": "Spamfy My Facebook will check your Facebook comments.",
+  "description": "Facebook Spam Killer will check your Facebook comments and hide the spams.",
   "page_action": {
-    "default_title": "Spamfy My Facebook",
-    "default_popup": "html/popup.html"
+    "default_title": "Facebook Spam Killer"
   },
   "background": {
     "scripts": [

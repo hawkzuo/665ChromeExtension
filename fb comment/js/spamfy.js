@@ -21,7 +21,7 @@ var spamfy = {
         chrome.runtime.onMessage.addListener(
             function(request, sender, sendResponse) {
                 if (request.action == "init") {
-                    spamfy.initIfLoaded(2000, 1);
+                    spamfy.initIfLoaded(2000, 10);
                 }
                 if (request.action == "refresh") {
                     spamfy.initPage();
