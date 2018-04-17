@@ -13,6 +13,7 @@
             "js": [
                 "src/extensionInjector.js"
             ],
+            "css": ["css/main.css"],
             "run_at": "document_end"
         }
     ],
