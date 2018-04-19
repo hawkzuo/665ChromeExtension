@@ -10,6 +10,8 @@ var spamfy = {
 
     // init: add message listeners and call the appropriate function based on the request
     init : function() {
+        
+        
         // initialize a mutation observer (listens for changes to the DOM)
         MutationObserver = window.WebKitMutationObserver
         observer = new MutationObserver(spamfy.domChanged);
@@ -104,7 +106,6 @@ var spamfy = {
             childList: true,
             attributes: false
         });    
-
 	var x = document.getElementsByClassName("UFIComment");
 	
     
@@ -151,4 +152,24 @@ var spamfy = {
     
 };
 
-spamfy.init();
+chrome.storage.sync.get({
+    permission : 'no_all'
+}, function(items) {
+    var cur_permission = items.permission;
+    //alert(cur_permission);
+    if (cur_permission=='no_all'){
+        //do not perform spamfy.init()
+        //alert('888');
+    }
+    else if(cur_permission=='yes_this'){
+        spamfy.init();
+        chrome.storage.sync.set({
+            permission: 'no_all'
+        })
+    }
+    else{
+        alert(cur_permission);
+        spamfy.init();
+    }
+});
+//spamfy.init();
