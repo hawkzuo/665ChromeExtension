@@ -3,7 +3,7 @@
 //var xhr=[];
 //var counter = 0;
 
-var spamfy = {
+var spamKiller = {
     
     // mutation observer
     observer : null,
@@ -12,21 +12,23 @@ var spamfy = {
     init : function() {
         
         
+        
         // initialize a mutation observer (listens for changes to the DOM)
         MutationObserver = window.WebKitMutationObserver
-        observer = new MutationObserver(spamfy.domChanged);
+        observer = new MutationObserver(spamKiller.domChanged);
                 
         // run the script on page init
-        spamfy.initPage();                    
+        spamKiller.initPage();                    
 
         // listen for messages and dispatch accordingly
         chrome.runtime.onMessage.addListener(
             function(request, sender, sendResponse) {
                 if (request.action == "init") {
-                    spamfy.initIfLoaded(2000, 10);
+                                             alert('init!!!!');
+                    spamKiller.initIfLoaded(2000, 10);
                 }
                 if (request.action == "refresh") {
-                    spamfy.initPage();
+                    spamKiller.initPage();
                 }
             }
         );
@@ -91,17 +93,17 @@ var spamfy = {
         }
         
         setTimeout(function() { 
-            if (document.getElementById("contentArea")) {
-                spamfy.initPage();
+            if (document.getElementById("content_container")) {
+                spamKiller.initPage();
             } else {
-                spamfy.initIfLoaded(time, n-1);
+                spamKiller.initIfLoaded(time, n-1);
             }},
             time);
     },
     
-    // initPage: initialize the DOM observer and spamfy all comments during page load
+    // initPage: initialize the DOM observer and spamKiller all comments during page load
     initPage : function() {
-        observer.observe(document.getElementById("contentArea"), {
+        observer.observe(document.getElementById("content_container"), {
             subtree: true,
             childList: true,
             attributes: false
@@ -151,25 +153,26 @@ var spamfy = {
     },
     
 };
-
+         console.log('PogChamp');
+         
 chrome.storage.sync.get({
     permission : 'no_all'
 }, function(items) {
     var cur_permission = items.permission;
     //alert(cur_permission);
     if (cur_permission=='no_all'){
-        //do not perform spamfy.init()
+        //do not perform spamKiller.init()
         //alert('888');
     }
     else if(cur_permission=='yes_this'){
-        spamfy.init();
+        spamKiller.init();
         chrome.storage.sync.set({
             permission: 'no_all'
         })
     }
     else{
         //alert(cur_permission);
-        spamfy.init();
+        spamKiller.init();
     }
 });
-//spamfy.init();
+//spamKiller.init();

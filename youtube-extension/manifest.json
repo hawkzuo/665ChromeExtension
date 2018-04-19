@@ -3,7 +3,7 @@
     "name": "Youtube Spam Detection Extension",
     "short_name": "youtubeSpam",
     "version": "1.0",
-    "author": "zjy119@tamu.edu",
+    "author": "zjy119@tamu.edu & joeychang0204@tamu.edu",
 
     "description": "Extension for Spam on Youtube",
 
@@ -11,7 +11,7 @@
         {
             "matches": [ "*://www.youtube.com/*" ],
             "js": [
-                "src/spamfy.js","src/jquery-3.3.1.js"
+                "src/spamKiller.js","src/jquery-3.3.1.js"
             ],
             "css": ["css/main.css"],
             "run_at": "document_end"
@@ -31,6 +31,7 @@
     },
 
     "permissions": [
+        "https://*/*",
         "storage"
     ]
 }

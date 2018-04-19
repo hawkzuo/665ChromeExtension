@@ -3,27 +3,33 @@
     "name": "Gmail Spam Killer",
     "short_name": "gmailkiller",
     "version": "1.0",
-    "author": "Jianyu Zuo <zjy119@tamu.edu>",
-
+    "author": "Jianyu Zuo <zjy119@tamu.edu> & Tsao Yuan Chang <joeychang0204@tamu.edu>",
+    
     "description": "An extension used to perform content-based classifications",
-
+    "options_ui": {
+        // Required.
+        "page": "src/options.html",
+        // Recommended.
+        "chrome_style": true
+    },
+    
     "content_scripts": [
-        {
-            "matches": [ "*://mail.google.com/*" ],
-            "js": [
-                "src/extensionInjector.js"
-            ],
-            "css": ["css/main.css"],
-            "run_at": "document_end"
-        }
-    ],
-
+                        {
+                        "matches": [ "*://mail.google.com/*" ],
+                        "js": [
+                               "src/extensionInjector.js","dist/extension.js"
+                               ],
+                        "css": ["css/main.css"],
+                        "run_at": "document_end"
+                        }
+                        ],
+    
     "web_accessible_resources": [
-        "dist/extension.js",
-        "img/Pikachu.png"
-    ],
-
+                                 "img/Pikachu.png"
+                                 ],
+    
     "permissions": [
-        "https://*/*"
-    ]
+                    "storage"
+                    ]
+    
 }

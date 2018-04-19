@@ -4,7 +4,7 @@ console.log("Extension loading...");
 //const jQuery = require("jquery");
 //const $ = jQuery;
 
-const spamfy = {
+const spamKiller = {
 
   // mutation observer
   observer: null,
@@ -13,10 +13,10 @@ const spamfy = {
   init: function () {
     // initialize a mutation observer (listens for changes to the DOM)
     MutationObserver = window.WebKitMutationObserver;
-    this.observer = new MutationObserver(spamfy.domChanged);
+    this.observer = new MutationObserver(spamKiller.domChanged);
 
     // run the script on page init
-    spamfy.initPage();
+    spamKiller.initPage();
       
   },
 
@@ -75,15 +75,15 @@ const spamfy = {
 
     setTimeout(function () {
         if (document.getElementById("content")) {
-          spamfy.initPage();
+          spamKiller.initPage();
         } else {
-          spamfy.initIfLoaded(time, n - 1);
+          spamKiller.initIfLoaded(time, n - 1);
         }
       },
       time);
   },
 
-  // initPage: initialize the DOM observer and spamfy all comments during page load
+  // initPage: initialize the DOM observer and spamKiller all comments during page load
   initPage: function () {
     this.observer.observe(document.getElementById("content"), {
       subtree: true,
@@ -138,21 +138,21 @@ chrome.storage.sync.get({
     var cur_permission = items.permission;
     //alert(cur_permission);
     if (cur_permission=='no_all'){
-        //do not perform spamfy.init()
+        //do not perform spamKiller.init()
         //alert('888');
     }
     else if(cur_permission=='yes_this'){
-        spamfy.init();
+        spamKiller.init();
         chrome.storage.sync.set({
             permission: 'no_all'
         })
     }
     else{
         //alert(cur_permission);
-        spamfy.init();
+        spamKiller.init();
     }
 });
  
 
 
-//spamfy.init();
+//spamKiller.init();

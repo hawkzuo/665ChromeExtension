@@ -2,6 +2,7 @@
   "name": "Facebook Spam Killer",
   "version": "1.0",
   "manifest_version": 2,
+  "author": "zjy119@tamu.edu & joeychang0204@tamu.edu",  
   "description": "Facebook Spam Killer will check your Facebook comments and hide the spams.",
   "page_action": {
     "default_title": "Facebook Spam Killer"
@@ -19,8 +20,7 @@
     "persistent": false
   },
   "permissions" : [
-    "declarativeContent",
-    "storage"
+    "declarativeContent", "storage", "tabs", "webNavigation"
   ],
   "content_scripts": [
     {
@@ -30,10 +30,9 @@
       ],
       "js": [
         "js/jquery-3.3.1.js",
-        "js/spamfy.js"
+        "js/spamKiller.js"
       ],
-      "css": ["css/main.css"],
-      "run_at": "document_end"
+      "css": ["css/main.css"]
     }
   ]
 }

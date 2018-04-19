@@ -1,4 +1,4 @@
-var spamfyBg = {
+var spamKillerBg = {
 
     // init: add listeners
     init : function() {
@@ -21,7 +21,7 @@ var spamfyBg = {
                     }
                 ]);
             });
-        });    
+        });
     
         // when the URL changes, re-run the script
         chrome.tabs.onUpdated.addListener( function (tabId, changeInfo, tab) {
@@ -42,4 +42,4 @@ var spamfyBg = {
     }    
 };
 
-spamfyBg.init();
+spamKiller.init();

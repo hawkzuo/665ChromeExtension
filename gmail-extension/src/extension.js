@@ -7,11 +7,15 @@ const GmailFactory = require("gmail-js");
 const gmail = new GmailFactory.Gmail($);
 window.gmail = gmail;
 
+
 function reqListener () {
     console.log(this.responseText);
 }
 
 
+
+const spamKiller = {
+    init:function(){
 gmail.observe.on("load", () => {
     const userEmail = gmail.get.user_email();
     console.log("Hello, " + userEmail + ". This is your extension talking!");
@@ -56,7 +60,7 @@ gmail.observe.on("load", () => {
               // Call Word List API
               // Comment is short, loop over comment words, excahnge
               // Independent to comments
-                const imgURL = 'chrome-extension://igehhcmcpeiglnilhlfpdglgpjbdnlpa/img/Pikachu.png';
+                const imgURL = 'chrome-extension://mkenanijannfnkbgbocdlfoipbhfkhoh/img/Pikachu.png';
                 currentMail.body('<div><img src="'+imgURL + '"></div>' + mailBody);
 
               // Keep making AJAX calls
@@ -75,7 +79,7 @@ gmail.observe.on("load", () => {
 
 
             }
-            console.log(currentMail);
+            console.log(currentMail);  
           },
           error: function() {                                     // Show error msg
               currentMail.body('<h1>Server refused to connect !</h1>' + mailBody);
@@ -87,4 +91,26 @@ gmail.observe.on("load", () => {
 
 
 
+});
+    }};
+
+chrome.storage.sync.get({
+    permission : 'no_all'
+}, function(items) {
+    var cur_permission = items.permission;
+    //alert(cur_permission);
+    if (cur_permission=='no_all'){
+    //do not perform spamfy.init()
+    //alert('888');
+    }
+    else if(cur_permission=='yes_this'){
+         spamKiller.init();
+         chrome.storage.sync.set({
+              permission: 'no_all'
+        })
+    }
+    else{
+         //alert(cur_permission);
+         spamKiller.init();
+    }
 });
