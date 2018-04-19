@@ -11,18 +11,26 @@
         {
             "matches": [ "*://www.youtube.com/*" ],
             "js": [
-                "src/extensionInjector.js"
+                "src/spamfy.js","src/jquery-3.3.1.js"
             ],
             "css": ["css/main.css"],
             "run_at": "document_end"
         }
     ],
-
-    "web_accessible_resources": [
-        "production/extension.js"
-    ],
+    "background": {
+        "scripts": [
+                    "src/jquery-3.3.1.js"
+                    ],
+        "persistent": false
+    },
+    "options_ui": {
+        // Required.
+        "page": "src/options.html",
+        // Recommended.
+        "chrome_style": true
+    },
 
     "permissions": [
-        "https://*/*"
+        "storage"
     ]
 }

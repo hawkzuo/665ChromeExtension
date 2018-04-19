@@ -1,8 +1,8 @@
 "use strict";
 
 console.log("Extension loading...");
-const jQuery = require("jquery");
-const $ = jQuery;
+//const jQuery = require("jquery");
+//const $ = jQuery;
 
 const spamfy = {
 
@@ -17,6 +17,7 @@ const spamfy = {
 
     // run the script on page init
     spamfy.initPage();
+      
   },
 
   // domChanged: the function to call when the DOM changes.
@@ -131,4 +132,27 @@ const spamfy = {
 
 };
 
-spamfy.init();
+chrome.storage.sync.get({
+    permission : 'no_all'
+}, function(items) {
+    var cur_permission = items.permission;
+    //alert(cur_permission);
+    if (cur_permission=='no_all'){
+        //do not perform spamfy.init()
+        //alert('888');
+    }
+    else if(cur_permission=='yes_this'){
+        spamfy.init();
+        chrome.storage.sync.set({
+            permission: 'no_all'
+        })
+    }
+    else{
+        //alert(cur_permission);
+        spamfy.init();
+    }
+});
+ 
+
+
+//spamfy.init();

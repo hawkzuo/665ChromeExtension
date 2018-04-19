@@ -168,7 +168,7 @@ chrome.storage.sync.get({
         })
     }
     else{
-        alert(cur_permission);
+        //alert(cur_permission);
         spamfy.init();
     }
 });
