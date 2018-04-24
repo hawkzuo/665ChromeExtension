@@ -25,11 +25,25 @@
                         ],
     
     "web_accessible_resources": [
-                                 "img/Pikachu.png"
+                                 "img/Pikachu.png",
+                                 "img/working.png",
+                                 "img/not-working.png"
                                  ],
     
     "permissions": [
                     "storage"
-                    ]
+                    ],
+    "browser_action": {
+        "default_title": "Facebook Spam Killer",
+        "default_icon":"img/not-working.png"  
+    },
+    "icons":{
+        "16": "img/not-working.png",
+        "48": "img/not-working.png",
+        "128": "img/not-working.png"
+    },
+    "background": {
+        "scripts": ["src/background.js"]
+    }
     
 }

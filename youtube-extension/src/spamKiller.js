@@ -140,15 +140,27 @@ chrome.storage.sync.get({
     if (cur_permission=='no_all'){
         //do not perform spamKiller.init()
         //alert('888');
+        chrome.runtime.sendMessage({
+          action:'updateIcon',
+          value:false
+        }); 
     }
     else if(cur_permission=='yes_this'){
+        chrome.runtime.sendMessage({
+           action:'updateIcon',
+           value:true
+        });
         spamKiller.init();
         chrome.storage.sync.set({
             permission: 'no_all'
-        })
+        });
     }
     else{
         //alert(cur_permission);
+        chrome.runtime.sendMessage({
+           action:'updateIcon',
+           value:true
+        });
         spamKiller.init();
     }
 });

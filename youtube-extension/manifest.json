@@ -19,10 +19,19 @@
     ],
     "background": {
         "scripts": [
-                    "src/jquery-3.3.1.js"
+                    "src/jquery-3.3.1.js", "src/background.js"
                     ],
         "persistent": false
     },
+    "browser_action": {
+        "default_title": "Youtube Spam Killer",
+        "default_icon":"img/not-working.png"  
+    },
+    "icons":{
+        "16": "img/not-working.png",
+        "48": "img/not-working.png",
+        "128": "img/not-working.png"
+    }, 
     "options_ui": {
         // Required.
         "page": "src/options.html",

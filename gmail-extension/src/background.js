@@ -36,13 +36,13 @@ var spamKillerBg = {
      */
     
         // when the URL changes, re-run the script
-        chrome.tabs.onUpdated.addListener( function (tabId, changeInfo, tab) {
-            if (changeInfo.status == 'complete' && tab.active) {
-                chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-                    chrome.tabs.sendMessage(tabs[0].id, {action : "init"});
-                });
-            }
-        });
+        //chrome.tabs.onUpdated.addListener( function (tabId, changeInfo, tab) {
+        //    if (changeInfo.status == 'complete' && tab.active) {
+        //        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        //            chrome.tabs.sendMessage(tabs[0].id, {action : "init"});
+        //        });
+        //    }
+        //});
     },
         
     // deb: show a debug message
