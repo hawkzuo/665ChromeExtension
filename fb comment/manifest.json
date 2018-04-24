@@ -4,9 +4,15 @@
   "manifest_version": 2,
   "author": "zjy119@tamu.edu & joeychang0204@tamu.edu",  
   "description": "Facebook Spam Killer will check your Facebook comments and hide the spams.",
-  "page_action": {
-    "default_title": "Facebook Spam Killer"
+  "browser_action": {
+    "default_title": "Facebook Spam Killer",
+    "default_icon":"img/not-working.png"  
   },
+  "icons":{
+    "16": "img/not-working.png",
+    "48": "img/not-working.png",
+    "128": "img/not-working.png"
+  },  
   "options_ui": {
         // Required.
         "page": "html/options.html",
@@ -34,5 +40,9 @@
       ],
       "css": ["css/main.css"]
     }
-  ]
+  ],
+    "web_accessible_resources": [
+                                 "img/working.png",
+                                 "img/not-working.png"
+                                 ] 
 }

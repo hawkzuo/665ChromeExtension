@@ -24,7 +24,7 @@ var spamKiller = {
         chrome.runtime.onMessage.addListener(
             function(request, sender, sendResponse) {
                 if (request.action == "init") {
-                                             alert('init!!!!');
+                                             //alert('init!!!!');
                     spamKiller.initIfLoaded(2000, 10);
                 }
                 if (request.action == "refresh") {
@@ -153,7 +153,6 @@ var spamKiller = {
     },
     
 };
-         console.log('PogChamp');
          
 chrome.storage.sync.get({
     permission : 'no_all'
@@ -162,9 +161,16 @@ chrome.storage.sync.get({
     //alert(cur_permission);
     if (cur_permission=='no_all'){
         //do not perform spamKiller.init()
-        //alert('888');
+        chrome.runtime.sendMessage({
+            action:'updateIcon',
+            value:false
+        }); 
     }
     else if(cur_permission=='yes_this'){
+        chrome.runtime.sendMessage({
+            action:'updateIcon',
+            value:true
+        });
         spamKiller.init();
         chrome.storage.sync.set({
             permission: 'no_all'
@@ -172,6 +178,10 @@ chrome.storage.sync.get({
     }
     else{
         //alert(cur_permission);
+        chrome.runtime.sendMessage({
+            action:'updateIcon',
+            value:true
+        });
         spamKiller.init();
     }
 });

@@ -4,7 +4,6 @@
 function save_options() {
     var select = document.getElementById("permission");
     var permission = select.children[select.selectedIndex].value;
-    localStorage["permission"] = permission;
     chrome.storage.sync.set({
         permission: permission
     }, function() {

@@ -2,7 +2,18 @@ var spamKillerBg = {
 
     // init: add listeners
     init : function() {
-    
+        chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
+                                             if (msg.action === "updateIcon") {
+                                             if (msg.value==true) {
+                                             console.log('its working!');
+                                             chrome.browserAction.setIcon({path: "img/working.png"});
+                                             } else {
+                                                         console.log('not working QQ');
+                                             chrome.browserAction.setIcon({path: "img/not-working.png"});
+                                             }
+                                             }
+                                             });
+    /*
         // when to show the extension icon?
         chrome.runtime.onInstalled.addListener(function() {
             // Replace all rules ...
@@ -22,6 +33,7 @@ var spamKillerBg = {
                 ]);
             });
         });
+     */
     
         // when the URL changes, re-run the script
         chrome.tabs.onUpdated.addListener( function (tabId, changeInfo, tab) {
@@ -30,7 +42,7 @@ var spamKillerBg = {
                     chrome.tabs.sendMessage(tabs[0].id, {action : "init"});
                 });
             }
-        });   
+        });
     },
         
     // deb: show a debug message
@@ -42,4 +54,4 @@ var spamKillerBg = {
     }    
 };
 
-spamKiller.init();
+spamKillerBg.init();
